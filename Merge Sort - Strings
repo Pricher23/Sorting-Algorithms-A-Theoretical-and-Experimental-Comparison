@@ -1,0 +1,94 @@
+import random
+import string
+import time
+
+def is_valid_length(word):
+  """Checks if the word length is between 2 and 7 characters (inclusive).
+
+  Args:
+      word: The string to check.
+
+  Returns:
+      True if the word length is between 2 and 7, False otherwise.
+  """
+  return 2 <= len(word) <= 7
+
+def generate_random_words(num_words):
+  """Generates a list of random strings with lengths between 2 and 7 characters.
+
+  Args:
+      num_words: The number of words to generate.
+
+  Returns:
+      A list of random strings.
+  """
+  words = []
+  for _ in range(num_words):
+    # Generate a random word with alphanumeric characters
+    word = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(random.randint(2, 7)))
+    if is_valid_length(word):
+      words.append(word)
+  return words
+
+def merge(left, right):
+  """Merges two sorted lists into a single sorted list.
+
+  Args:
+      left: The first sorted list.
+      right: The second sorted list.
+
+  Returns:
+      The merged sorted list.
+  """
+  merged = []
+  i = j = 0
+  while i < len(left) and j < len(right):
+    if left[i] < right[j]:
+      merged.append(left[i])
+      i += 1
+    else:
+      merged.append(right[j])
+      j += 1
+  merged += left[i:]
+  merged += right[j:]
+  return merged
+
+def merge_sort(data):
+  """Sorts a list using merge sort algorithm.
+
+  Args:
+      data: The list to be sorted.
+
+  Returns:
+      The sorted list.
+  """
+  if len(data) <= 1:
+    return data
+  mid = len(data) // 2
+  left = merge_sort(data[:mid])
+  right = merge_sort(data[mid:])
+  return merge(left, right)
+
+def main():
+  # Number of words to generate
+  num_words = 10000
+
+  # Generate random words with lengths between 2 and 7 characters
+  data = generate_random_words(num_words)
+
+  # Start time measurement
+  start_time = time.perf_counter()
+
+  # Sort the list using merge sort
+  sorted_data = merge_sort(data)
+
+  # End time measurement
+  end_time = time.perf_counter()
+
+  # Calculate execution time
+  elapsed_time = end_time - start_time
+
+  print(f"Time taken to sort {len(data)} strings (2-7 characters) using merge sort: {elapsed_time:.4f} seconds")
+
+if __name__ == "__main__":
+  main()
