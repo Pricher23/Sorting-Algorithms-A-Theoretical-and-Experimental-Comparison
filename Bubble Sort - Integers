@@ -1,0 +1,44 @@
+import random
+import time
+
+def bubble_sort(data):
+  """Sorts a list using bubble sort algorithm.
+
+  Args:
+      data: The list to be sorted.
+
+  Returns:
+      The sorted list.
+  """
+  n = len(data)
+  swapped = False
+  for i in range(n - 1):
+    for j in range(0, n - i - 1):
+      if data[j] > data[j + 1]:
+        swapped = True
+        data[j], data[j + 1] = data[j + 1], data[j]
+    if not swapped:
+      # List is already sorted, break early
+      break
+  return data
+
+def main():
+  # Generate a list of 100,000 random numbers
+  data = [random.randint(1, 100000) for _ in range(10000)] #here the number in the paranthesis will be changed for measuring for lists of 10, 100, 1000, 10K, 100K and so on
+
+  # Start time measurement
+  start_time = time.perf_counter()
+
+  # Sort the list
+  sorted_data = bubble_sort(data.copy())  # Avoid modifying original list
+
+  # End time measurement
+  end_time = time.perf_counter()
+
+  # Calculate execution time
+  elapsed_time = end_time - start_time
+
+  print(f"Time taken to sort {len(data)} elements using bubble sort: {elapsed_time:.4f} seconds")
+
+if __name__ == "__main__":
+  main()
