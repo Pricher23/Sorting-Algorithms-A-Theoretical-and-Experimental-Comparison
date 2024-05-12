@@ -1,0 +1,44 @@
+import random
+import time
+
+def selection_sort(data):
+  """Sorts a list using selection sort algorithm.
+
+  Args:
+      data: The list to be sorted.
+
+  Returns:
+      The sorted list.
+  """
+  n = len(data)
+  for i in range(n):
+    # Find the minimum element in unsorted array
+    min_index = i
+    for j in range(i + 1, n):
+      if data[j] < data[min_index]:
+        min_index = j
+    # Swap the found minimum element with the first element of unsorted array
+    if i != min_index:
+      data[i], data[min_index] = data[min_index], data[i]
+  return data
+
+def main():
+  # Generate a list of 10,000 random integers between 0 and 100000
+  data = [random.randint(0, 100000) for _ in range(10000)]
+
+  # Start time measurement
+  start_time = time.perf_counter()
+
+  # Sort the list using selection sort
+  sorted_data = selection_sort(data)
+
+  # End time measurement
+  end_time = time.perf_counter()
+
+  # Calculate execution time
+  elapsed_time = end_time - start_time
+
+  print(f"Time taken to sort {len(data)} elements using selection sort: {elapsed_time:.4f} seconds")
+
+if __name__ == "__main__":
+  main()
