@@ -24,7 +24,6 @@ def insertion_sort(data):
   return data
 
 def main():
-  # Generate a list of 100,000 random numbers
   data = [random.randint(1, 100000) for _ in range(1000)]
 
   # Start time measurement
