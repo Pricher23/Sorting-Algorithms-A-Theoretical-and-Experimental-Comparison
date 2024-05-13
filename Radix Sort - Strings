@@ -1,0 +1,41 @@
+import time
+import random
+
+def counting_sort(arr, exp):
+    n = len(arr)
+    output = [0] * n
+    count = [0] * 256
+
+    for i in range(n):
+        index = ord(arr[i][exp]) if len(arr[i]) > exp else 0
+        count[index] += 1
+
+    for i in range(1, 256):
+        count[i] += count[i - 1]
+
+    i = n - 1
+    while i >= 0:
+        index = ord(arr[i][exp]) if len(arr[i]) > exp else 0
+        output[count[index] - 1] = arr[i]
+        count[index] -= 1
+        i -= 1
+
+    for i in range(n):
+        arr[i] = output[i]
+
+def radix_sort(arr):
+    max_len = max(len(x) for x in arr)
+    for exp in range(max_len - 1, -1, -1):
+        counting_sort(arr, exp)
+
+if __name__ == "__main__":
+    # Generate a list of 100,000 random strings
+    random_strings = [''.join(random.choices('abcdefghijklmnopqrstuvwxyz', k=random.randint(2, 7))) for _ in range(100000)]
+
+    # Time radix sort
+    start_time = time.time()
+    radix_sort(random_strings)
+    end_time = time.time()
+
+    # Print the time taken with 4 digits after the comma
+    print(f"Time taken for sorting 100,000 strings using Radix Sort: {end_time - start_time:.4f} seconds")
