@@ -1,0 +1,21 @@
+import time
+import random
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    else:
+        pivot = arr[0]
+        less_than_pivot = [x for x in arr[1:] if x <= pivot]
+        greater_than_pivot = [x for x in arr[1:] if x > pivot]
+        return quick_sort(less_than_pivot) + [pivot] + quick_sort(greater_than_pivot)
+
+if __name__ == "__main__":
+    random_integers = [random.randint(0, 100000) for _ in range(100000)]
+
+    # Time quick sort
+    start_time = time.time()
+    sorted_list = quick_sort(random_integers)
+    end_time = time.time()
+
+    print(f"Time taken for sorting 100,000 integers using Quick Sort: {end_time - start_time:.4f} seconds")
