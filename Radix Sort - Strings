@@ -29,7 +29,6 @@ def radix_sort(arr):
         counting_sort(arr, exp)
 
 if __name__ == "__main__":
-    # Generate a list of 100,000 random strings
     random_strings = [''.join(random.choices('abcdefghijklmnopqrstuvwxyz', k=random.randint(2, 7))) for _ in range(100000)]
 
     # Time radix sort
@@ -37,5 +36,4 @@ if __name__ == "__main__":
     radix_sort(random_strings)
     end_time = time.time()
 
-    # Print the time taken with 4 digits after the comma
     print(f"Time taken for sorting 100,000 strings using Radix Sort: {end_time - start_time:.4f} seconds")
